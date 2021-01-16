@@ -29,9 +29,9 @@ zlib1g-dev
 
 # download, build and install qt
 RUN cd /usr/local/src/ \
-&& wget https://download.qt.io/official_releases/qt/5.15/5.15.2/single/qt-everywhere-src-5.15.2.tar.xz \
-&& tar -xJf qt-everywhere-src-5.15.2.tar.xz \
-&& mv qt-everywhere-src-5.15.2 qt-static \
+&& wget https://download.qt.io/official_releases/qt/5.12/5.12.10/single/qt-everywhere-src-5.12.10.tar.xz \
+&& tar -xJf qt-everywhere-src-5.12.10.tar.xz \
+&& mv qt-everywhere-src-5.12.10 qt-static \
 && cd /usr/local/src/qt-static \
 && export MAKE=/usr/bin/make \
 && ./configure -static -prefix /usr/local/lib/qt-static -extprefix /usr/local/lib/qt-static -no-opengl -nomake examples -nomake tests -opensource -platform linux-g++-64 -no-icu -confirm-license -opensource \
