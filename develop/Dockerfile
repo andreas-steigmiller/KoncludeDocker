@@ -35,7 +35,7 @@ RUN cd /usr/local/src/ \
 && cd /usr/local/src/qt-static \
 && export MAKE=/usr/bin/make \
 && ./configure -static -prefix /usr/local/lib/qt-static -extprefix /usr/local/lib/qt-static -no-opengl -nomake examples -nomake tests -opensource -platform linux-g++-64 -no-icu -confirm-license -opensource \
-&& make > /dev/null \
+&& make \
 && make install
 
 
@@ -48,7 +48,7 @@ RUN cd /usr/local/src/ \
 && mv libxml2-2.9.9 libxml2-static \
 && cd libxml2-static \
 && ./configure --prefix=/usr/local/lib/libxml2-static \
-&& make > /dev/null \
+&& make \
 && make install
 
 
@@ -65,7 +65,7 @@ RUN cd /usr/local/src/ \
 && export LIBXML_LIBS="-L/usr/local/lib/libxml2-static/lib -lxml2" \
 && export LIBXML_LIBS="/usr/local/lib/libxml2-static/libxml2.a" \
 && ./configure --prefix=/usr/local/lib/raptor2-static --with-xml2-config=/usr/local/lib/libxml2-static/bin/xml2-config \
-&& make > /dev/null \
+&& make \
 && make install
 
 
@@ -83,7 +83,7 @@ RUN cd /usr/local/src/ \
 && git log --oneline | grep -q 0c42ebc \
 \
 && ./autogen.sh --prefix=/usr/local/lib/rasqal-static \
-&& make > /dev/null \
+&& make \
 && make install
 
 
@@ -109,7 +109,7 @@ RUN cd /usr/local/src/ \
 && sed -i -e 's#RASQAL_VERSION=`$PKG_CONFIG rasqal --modversion 2>/dev/null`#if test -n "$RASQAL_VERSION"; then echo "Assuming rasqal version $RASQAL_VERSION"; else RASQAL_VERSION=`$PKG_CONFIG rasqal --modversion 2>/dev/null`; fi#g' configure \
 \
 && ./configure --prefix=/usr/local/lib/redland-static \
-&& make > /dev/null \
+&& make \
 && make install
 
 
