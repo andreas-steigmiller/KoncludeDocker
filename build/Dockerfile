@@ -1,6 +1,72 @@
 # This dockerfile executes the build, it starts from the dev environment
 FROM koncludedev
 
+
+
+
+# include the source code of Konclude
+COPY Konclude/ /usr/local/src/konclude-static
+COPY revision-git.h /usr/local/src/konclude-static
+COPY UnixGitBuildScript.sh /usr/local/src/konclude-static
+
+
+
+
+# remove intermediate files (to ensure a clean build later)
+RUN rm -rf usr/local/src/konclude-static/Release \
+&& rm -rf usr/local/src/konclude-static/release \
+&& rm -rf usr/local/src/konclude-static/GeneratedFiles
+
+
+RUN cd /usr/local/src/konclude-static/External/ \
+&& mkdir -p hoard/Linux/x64/lib/release \
+&& cp /usr/local/src/hoard-static/src/libhoard.a /usr/local/src/konclude-static/External/hoard/Linux/x64/lib/release
+
+
+RUN cd /usr/local/src/konclude-static/External/ \
+&& mkdir -p jemalloc/Linux/x64/lib/release \
+&& cp /usr/local/src/jemalloc-static/lib/libjemalloc.a /usr/local/src/konclude-static/External/jemalloc/Linux/x64/lib/release
+
+
+
+RUN cd /usr/local/src/konclude-static/External/ \
+&& mkdir -p gperftools/Linux/x64/lib/release \
+&& cp /usr/local/lib/gperftools-static/lib/libtcmalloc.a /usr/local/src/konclude-static/External/gperftools/Linux/x64/lib/release \
+&& cp /usr/local/lib/gperftools-static/lib/libprofiler.a /usr/local/src/konclude-static/External/gperftools/Linux/x64/lib/release \
+&& cp /usr/local/lib/gperftools-static/lib/libtcmalloc_and_profiler.a /usr/local/src/konclude-static/External/gperftools/Linux/x64/lib/release \
+&& cp /usr/local/lib/gperftools-static/lib/libtcmalloc_minimal.a /usr/local/src/konclude-static/External/gperftools/Linux/x64/lib/release
+
+
+
+RUN cp /usr/local/lib/libxml2-static/lib/libxml2.so.2.9.9 /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/libxml2-static/lib/libxml2.so.2 /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/libxml2-static/lib/libxml2.so /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/libxml2-static/lib/libxml2.la /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/libxml2-static/lib/libxml2.a /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+\
+&& cp /usr/local/lib/raptor2-static/lib/libraptor2.so.0.0.0 /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/raptor2-static/lib/libraptor2.so.0 /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/raptor2-static/lib/libraptor2.so /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/raptor2-static/lib/libraptor2.la /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/raptor2-static/lib/libraptor2.a /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+\
+&& cp /usr/local/lib/rasqal-static/lib/librasqal.so.3.0.0 /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/rasqal-static/lib/librasqal.so.3 /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/rasqal-static/lib/librasqal.so /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/rasqal-static/lib/librasqal.la /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/rasqal-static/lib/librasqal.a /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+\
+&& cp /usr/local/lib/redland-static/lib/librdf.so.0.0.0 /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/redland-static/lib/librdf.so.0 /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/redland-static/lib/librdf.so /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/redland-static/lib/librdf.la /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
+&& cp /usr/local/lib/redland-static/lib/librdf.a /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release
+
+
+
+
+
+
 # These are the build steps
 RUN BUILD_DIR=/usr/local/src/konclude-static  \
 && cd $BUILD_DIR \
