@@ -12,8 +12,11 @@ indent(){
 echo "Taking a 'develop' snapshot first (required for 'build')"
 "$DIR/../develop/snap.sh" | indent
 
-cd "$DIR"
+# copy the dockerfile to the project root so it can be a parent of the source
+# (necessary because docker hashes children to see if rebuilding a layer is needed)
+cp -p "$DIR/Dockerfile" "$ROOT"
 
+cd "$ROOT"
 
 mkdir -p "$ROOT/Konclude/External/librdf/Linux/x64/lib/release"
 
