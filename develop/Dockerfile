@@ -29,7 +29,7 @@ zlib1g-dev
 
 # download, build and install qt
 RUN cd /usr/local/src/ \
-&& wget -q https://download.qt.io/official_releases/qt/5.12/5.12.10/single/qt-everywhere-src-5.12.10.tar.xz \
+&& wget https://download.qt.io/official_releases/qt/5.12/5.12.10/single/qt-everywhere-src-5.12.10.tar.xz \
 && tar -xJf qt-everywhere-src-5.12.10.tar.xz \
 && mv qt-everywhere-src-5.12.10 qt-static \
 && cd /usr/local/src/qt-static \
@@ -37,7 +37,6 @@ RUN cd /usr/local/src/ \
 && ./configure -static -prefix /usr/local/lib/qt-static -extprefix /usr/local/lib/qt-static -no-opengl -nomake examples -nomake tests -opensource -platform linux-g++-64 -no-icu -confirm-license -opensource \
 && make \
 && make install
-
 
 
 
@@ -83,7 +82,11 @@ RUN cd /usr/local/src/ \
 && git log --oneline | grep -q 0c42ebc \
 \
 && ./autogen.sh --prefix=/usr/local/lib/rasqal-static \
-&& make \
+&& (make \
+|| (sed -i -e 's#yycleanup(yyscanner);# #g' src/sparql_lexer.c \
+&& sed -i -e 's#extern int yylex#extern int sparql_lexer_lex#g' src/sparql_lexer.h \
+&& sed -i -e 's#define YY_DECL int yylex#define YY_DECL int sparql_lexer_lex#g' src/sparql_lexer.h \
+&& make -j)) \
 && make install
 
 
@@ -115,6 +118,40 @@ RUN cd /usr/local/src/ \
 
 
 
+
+
+RUN cd /usr/local/src/ \
+&& wget https://github.com/emeryberger/Hoard/releases/download/3.13/hoard-release.tar.gz \
+&& tar -xvzf hoard-release.tar.gz \
+&& mv Hoard hoard-static \
+&& cd hoard-static/src \
+&& make Linux-gcc-x86_64-static
+
+
+RUN cd /usr/local/src/ \
+&& wget https://github.com/gperftools/gperftools/releases/download/gperftools-2.7.90/gperftools-2.7.90.tar.gz \
+&& tar -xvzf gperftools-2.7.90.tar.gz \
+&& mv gperftools-2.7.90 gperftools-static \
+&& cd gperftools-static \
+&& ./configure --prefix=/usr/local/lib/gperftools-static \
+&& make \
+&& make install
+
+
+
+
+
+RUN cd /usr/local/src/ \
+&& wget https://github.com/jemalloc/jemalloc/releases/download/5.2.1/jemalloc-5.2.1.tar.bz2 \
+&& tar -xf jemalloc-5.2.1.tar.bz2 --no-same-owner \
+&& mv jemalloc-5.2.1 jemalloc-static \
+&& cd jemalloc-static \
+&& ./configure --prefix=/usr/local/lib/jemalloc-static \
+&& make \
+&& make install
+
+
+
 # include the source code of Konclude
 COPY Konclude/ /usr/local/src/konclude-static
 COPY revision-git.h /usr/local/src/konclude-static
@@ -128,6 +165,24 @@ RUN rm -rf usr/local/src/konclude-static/Release \
 && rm -rf usr/local/src/konclude-static/release \
 && rm -rf usr/local/src/konclude-static/GeneratedFiles
 
+
+RUN cd /usr/local/src/konclude-static/External/ \
+&& mkdir -p hoard/Linux/x64/lib/release \
+&& cp /usr/local/src/hoard-static/src/libhoard.a /usr/local/src/konclude-static/External/hoard/Linux/x64/lib/release
+
+
+RUN cd /usr/local/src/konclude-static/External/ \
+&& mkdir -p jemalloc/Linux/x64/lib/release \
+&& cp /usr/local/src/jemalloc-static/lib/libjemalloc.a /usr/local/src/konclude-static/External/jemalloc/Linux/x64/lib/release
+
+
+
+RUN cd /usr/local/src/konclude-static/External/ \
+&& mkdir -p gperftools/Linux/x64/lib/release \
+&& cp /usr/local/lib/gperftools-static/lib/libtcmalloc.a /usr/local/src/konclude-static/External/gperftools/Linux/x64/lib/release \
+&& cp /usr/local/lib/gperftools-static/lib/libprofiler.a /usr/local/src/konclude-static/External/gperftools/Linux/x64/lib/release \
+&& cp /usr/local/lib/gperftools-static/lib/libtcmalloc_and_profiler.a /usr/local/src/konclude-static/External/gperftools/Linux/x64/lib/release \
+&& cp /usr/local/lib/gperftools-static/lib/libtcmalloc_minimal.a /usr/local/src/konclude-static/External/gperftools/Linux/x64/lib/release
 
 
 
@@ -154,8 +209,5 @@ RUN cp /usr/local/lib/libxml2-static/lib/libxml2.so.2.9.9 /usr/local/src/konclud
 && cp /usr/local/lib/redland-static/lib/librdf.so /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
 && cp /usr/local/lib/redland-static/lib/librdf.la /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release \
 && cp /usr/local/lib/redland-static/lib/librdf.a /usr/local/src/konclude-static/External/librdf/Linux/x64/lib/release
-
-
-
 
 
