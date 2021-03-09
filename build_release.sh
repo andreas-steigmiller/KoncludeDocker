@@ -12,9 +12,9 @@ mkdir "$ROOT/Release"
 cd "$DIR"
 
 
-revisionCount="965"
-revisionTagName="v0.6.2"
-revisionHashName="fa20b125"
+revisionCount=$1
+revisionTagName=$2
+revisionHashName=$3
 
 
 # binary linux release
