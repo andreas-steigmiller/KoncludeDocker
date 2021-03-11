@@ -34,7 +34,7 @@ RUN cd /usr/local/src/ \
 && mv qt-everywhere-src-5.12.10 qt-static \
 && cd /usr/local/src/qt-static \
 && export MAKE=/usr/bin/make \
-&& ./configure -static -prefix /usr/local/lib/qt-static -extprefix /usr/local/lib/qt-static -no-opengl -nomake examples -nomake tests -no-webkit -no-qt3support -no-script -no-scripttools -opensource -platform linux-g++-64 -no-icu -confirm-license -opensource \
+&& ./configure -static -prefix /usr/local/lib/qt-static -extprefix /usr/local/lib/qt-static -no-opengl -nomake examples -nomake tests -nomake tools -no-webkit -no-qt3support -no-script -no-scripttools -opensource -platform linux-g++-64 -no-icu -confirm-license -opensource \
 && make \
 && make install
 
