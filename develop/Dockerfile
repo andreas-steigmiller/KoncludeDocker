@@ -121,27 +121,6 @@ RUN cd /usr/local/src/ \
 
 
 RUN cd /usr/local/src/ \
-&& wget https://github.com/emeryberger/Hoard/releases/download/3.13/hoard-release.tar.gz \
-&& tar -xvzf hoard-release.tar.gz \
-&& mv Hoard hoard-static \
-&& cd hoard-static/src \
-&& make Linux-gcc-x86_64-static
-
-
-RUN cd /usr/local/src/ \
-&& wget https://github.com/gperftools/gperftools/releases/download/gperftools-2.7.90/gperftools-2.7.90.tar.gz \
-&& tar -xvzf gperftools-2.7.90.tar.gz \
-&& mv gperftools-2.7.90 gperftools-static \
-&& cd gperftools-static \
-&& ./configure --prefix=/usr/local/lib/gperftools-static \
-&& make \
-&& make install
-
-
-
-
-
-RUN cd /usr/local/src/ \
 && wget https://github.com/jemalloc/jemalloc/releases/download/5.2.1/jemalloc-5.2.1.tar.bz2 \
 && tar -xf jemalloc-5.2.1.tar.bz2 --no-same-owner \
 && mv jemalloc-5.2.1 jemalloc-static \
