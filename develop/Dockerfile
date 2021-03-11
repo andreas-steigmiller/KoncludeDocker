@@ -36,7 +36,7 @@ RUN cd /usr/local/src/ \
 && export MAKE=/usr/bin/make \
 && ./configure -static -prefix /usr/local/lib/qt-static -extprefix /usr/local/lib/qt-static -no-opengl -nomake examples -nomake tests -nomake tools -skip webview -skip webchannel -skip 3d -skip script -skip webengine -opensource -platform linux-g++-64 -no-icu -confirm-license -opensource \
 && make \
-&& make install
+&& make install \
 && make clean
 
 
