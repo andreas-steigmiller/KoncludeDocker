@@ -18,23 +18,10 @@ RUN rm -rf usr/local/src/konclude-static/Release \
 && rm -rf usr/local/src/konclude-static/GeneratedFiles
 
 
-RUN cd /usr/local/src/konclude-static/External/ \
-&& mkdir -p hoard/Linux/x64/lib/release \
-&& cp /usr/local/src/hoard-static/src/libhoard.a /usr/local/src/konclude-static/External/hoard/Linux/x64/lib/release
-
 
 RUN cd /usr/local/src/konclude-static/External/ \
 && mkdir -p jemalloc/Linux/x64/lib/release \
 && cp /usr/local/src/jemalloc-static/lib/libjemalloc.a /usr/local/src/konclude-static/External/jemalloc/Linux/x64/lib/release
-
-
-
-RUN cd /usr/local/src/konclude-static/External/ \
-&& mkdir -p gperftools/Linux/x64/lib/release \
-&& cp /usr/local/lib/gperftools-static/lib/libtcmalloc.a /usr/local/src/konclude-static/External/gperftools/Linux/x64/lib/release \
-&& cp /usr/local/lib/gperftools-static/lib/libprofiler.a /usr/local/src/konclude-static/External/gperftools/Linux/x64/lib/release \
-&& cp /usr/local/lib/gperftools-static/lib/libtcmalloc_and_profiler.a /usr/local/src/konclude-static/External/gperftools/Linux/x64/lib/release \
-&& cp /usr/local/lib/gperftools-static/lib/libtcmalloc_minimal.a /usr/local/src/konclude-static/External/gperftools/Linux/x64/lib/release
 
 
 
