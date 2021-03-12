@@ -35,11 +35,15 @@ printf "\n"
 # copy the dockerfile to the project root so it can be a parent of the source
 # (necessary because docker hashes children to see if rebuilding a layer is needed)
 cp -p "$DIR/Dockerfile" "$ROOT"
+echo "KoncludeDocker/" > "$ROOT/.dockerignore"
+echo "Konclude/" >> "$ROOT/.dockerignore"
+
 
 cd "$ROOT"
 docker build . -t "konclude" && printf "Done building 'build'\n\n"
 
 rm "$ROOT/Dockerfile"
+rm "$ROOT/.dockerignore"
 
 
 
