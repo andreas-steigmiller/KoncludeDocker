@@ -15,7 +15,7 @@ echo "Taking a 'develop' snapshot first (required for 'build')"
 # copy the dockerfile to the project root so it can be a parent of the source
 # (necessary because docker hashes children to see if rebuilding a layer is needed)
 cp -p "$DIR/Dockerfile" "$ROOT"
-echo "KoncludeDocker/" > "$ROOT/.dockerignore"
+echo "KoncludeDocker/" >> "$ROOT/.dockerignore"
 
 cd "$ROOT"
 
