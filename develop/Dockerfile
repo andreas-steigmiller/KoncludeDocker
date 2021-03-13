@@ -11,7 +11,6 @@ wget \
 xz-utils \
 python \
 flex \
-bison \
 gperf \
 python-dev \
 autotools-dev \
