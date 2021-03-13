@@ -18,7 +18,7 @@ revisionHashName=$3
 
 
 # binary linux release
-RELEA="$ROOT/Release/Konclude-$revisionTagName-$revisionCount-Linux-Docker-x64-GCC4.8.4-Static-Qt5.12.10"
+RELEA="$ROOT/Release/Konclude-$revisionTagName-$revisionCount-Linux-Docker-Compiled-x64-GCC4.8.4-Static-Qt5.12.10"
 mkdir "$RELEA"
 mkdir "$RELEA/Configs"
 mkdir "$RELEA/Tests"
@@ -53,7 +53,7 @@ cp "$PROJ/Configs/querying-config.xml" "$RELEA/Configs"
 
 
 
-releaseZipName="Konclude-$revisionTagName-$revisionCount-Linux-Docker-x64-GCC4.8.4-Static-Qt5.12.10"
+releaseZipName="Konclude-$revisionTagName-$revisionCount-Linux-Docker-Compiled-x64-GCC4.8.4-Static-Qt5.12.10"
 
 
 # source code release
