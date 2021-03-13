@@ -48,7 +48,7 @@ rm "$ROOT/.dockerignore"
 
 
 echo "Things to try:"
-echo "docker run -v $PROJ/Tests:/data --rm konclude owllinkfile -i /data/galen-ALEHIF+-classify-request.xml -o /data/Test-response.xml"
+echo "docker run -v $PROJ/Tests:/data --rm konclude owllinkfile -i /data/galen-classify-request.xml -o /data/Test-response.xml"
 echo "docker run -p 8080:8080 --rm konclude owllinkserver"
 echo "docker run -p 8080:8080 --rm konclude sparqlserver"
 
