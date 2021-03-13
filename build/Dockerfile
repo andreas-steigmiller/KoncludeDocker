@@ -62,7 +62,7 @@ RUN BUILD_DIR=/usr/local/src/konclude-static  \
 && export QTINC=/usr/local/lib/qt-static/include \
 && export QTLIB=/usr/local/lib/qt-static/lib \
 && ls -al /usr/lib/x86_64-linux-gnu/ \
-&& sed -i -e 's\unix: LIBS += -lz -lltdl -lgmp -ldl -L External/jemalloc/Linux/x64/lib/release/ -ljemalloc\unix:!macx: LIBS += -lz -lltdl -lgmp -ldl /usr/lib/x86_64-linux-gnu/libltdl.a -L External/jemalloc/Linux/x64/lib/release/ -ljemalloc\g' Konclude.pro \
+&& sed -i -e 's\unix: LIBS += -lz -lltdl -lgmp -ldl -L External/jemalloc/Linux/x64/lib/release/ -ljemalloc\unix:!macx: LIBS += -lz -ldl /usr/lib/x86_64-linux-gnu/libgmp.a /usr/lib/x86_64-linux-gnu/libltdl.a -L External/jemalloc/Linux/x64/lib/release/ -ljemalloc\g' Konclude.pro \
 && cat Konclude.pro \
 && qmake -r CONFIG+=release CONFIG+=x86_64 CONFIG-=debug CONFIG+=static -spec /usr/local/lib/qt-static/mkspecs/linux-g++-64 Konclude.pro \
 && make \
