@@ -62,6 +62,7 @@ RUN BUILD_DIR=/usr/local/src/konclude-static  \
 && export QTINC=/usr/local/lib/qt-static/include \
 && export QTLIB=/usr/local/lib/qt-static/lib \
 && sed -i -e 's\unix:!macx: LIBS += -lz -lltdl -lgmp -ldl\unix:!macx: LIBS += -lz -lgmp -ldl /usr/lib/x86_64-linux-gnu/libltdl.a\g' Konclude.pro \
+&& sed -i -e 's\unix: LIBS += -lz -lltdl -lgmp -ldl -L External/jemalloc/Linux/x64/lib/release/ -ljemalloc\unix:!macx: LIBS += -lz -lgmp -ldl /usr/lib/x86_64-linux-gnu/libltdl.a -L External/jemalloc/Linux/x64/lib/release/ -ljemalloc\g' Konclude.pro
 && qmake -r CONFIG+=release CONFIG+=x86_64 CONFIG-=debug CONFIG+=static -spec /usr/local/lib/qt-static/mkspecs/linux-g++-64 Konclude.pro \
 && make \
 && ./Release/Konclude owllinkfile -c Configs/default-config.xml -v -e -r Tests/Test-response.xml -q Tests/galen-ALEHIF+-classify-request.xml -w 1
